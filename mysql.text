@@ -1,0 +1,8 @@
+CREATE TABLE `VoteWeb`.`BaiViet` ( `idBaiViet` INT NOT NULL AUTO_INCREMENT , `tieude` TEXT NOT NULL , `date` DATE NOT NULL , `description` VARCHAR(300) NOT NULL , `noidung` LONGTEXT NOT NULL , PRIMARY KEY (`idBaiViet`)) ENGINE = InnoDB;
+INSERT INTO `NguoiDung` (`userID`, `hoten`, `email`, `ngaysinh`, `quoctich`) VALUES (NULL, 'vodanh', 'abc@gmail.com', '1998/01/01', 'Vietnam');
+CREATE TABLE `CuocThi` ( `idCT` int NOT null PRIMARY KEY AUTO_INCREMENT, `tenCT` varchar(50), `batdau` datetime, `ketthuc` datetime, `tongvote` int, `linh vuc` int )
+CREATE TABLE `ChiTietCT`( `idCT` int, `idIdol` int, `voteOfIdol` int, `tenIdol` varchar(50) )
+CREATE TABLE `Idols`( `idIdol` int not null auto_increment, `tenIdo` varchar(50), `ngaysinh` date, `quoctich` varchar(30) )
+CREATE TABLE `VoteCT`( `idCT` int, `idUser` int, `idIdol` int)
+CREATE TABLE `VoteIdol`( `idIdol` int, `idUser` int, `idCT` int)
+ALTER TABLE `table1` ADD FOREIGN KEY (`FK_table2`) REFERENCES `table2`(`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
