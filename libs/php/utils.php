@@ -1,4 +1,5 @@
 <?php
+require 'PHPMailer-5.2-stable/PHPMailerAutoload.php';
 class Utils{
 	function getToken($length=32){
 		$token = "";
@@ -27,18 +28,28 @@ class Utils{
 
 // send email using built in php mailer
 public function sendEmailViaPhpMail($send_to_email, $subject, $body){
+	$mail = new PHPMailer;
+	$mail->isSMTP();                                      // Set mailer to use SMTP
+	$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+	$mail->SMTPAuth = true;                               // Enable SMTP authentication
+	$mail->Username = 'quangzetsu@gmail.com';                 // SMTP username
+	$mail->Password = 'Gicungduoc1';                           // SMTP password
+	$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+	$mail->Port = 587;                                    // TCP port to connect to
 
-	$from_name="quangzetsu@gmail.com";
-	$from_email="quangzetsu@gmail.com";
+	$mail->setFrom('no-rep@gmail.com', 'VoteWeb');
+	$mail->addAddress($send_to_email, 'Receiver');
+	$mail->isHTML(true);
+	
+	$mail->Subject = $subject;
+	$mail->Body    = $body;
+	$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-	$headers  = "MIME-Version: 1.0\r\n";
-	$headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
-	$headers .= "From: {$from_name} <{$from_email}> \n";
 
-	if(mail($send_to_email, $subject, $body, $headers)){
-		return true;
-	}else{
+	if(!$mail->send()) {
 		return false;
+	} else {
+		return true;
 	}
 }
 }

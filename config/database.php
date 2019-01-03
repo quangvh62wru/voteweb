@@ -4,9 +4,9 @@ class Database{
  
     // specify your own database credentials
     private $host = "localhost";
-    private $db_name = "VoteWeb";
-    private $username = "mother";
-    private $password = "gicungduoc";
+    private $db_name = "voteweb";
+    private $username = "root";
+    private $password = "";
     public $conn;
  
     // get the database connection

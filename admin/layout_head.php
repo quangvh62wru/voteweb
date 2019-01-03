@@ -7,12 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
  
     <title><?php echo isset($page_title) ? strip_tags($page_title) : "Store Admin"; ?></title>
+    <style type="text/css"></style>
  
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  
     <!-- admin custom CSS -->
-    <link href="<?php echo $home_url . "libs/css/admin.css" ?>" rel="stylesheet" />
+    <link href="libs/css/admin.css" rel="stylesheet" />
  
 </head>
 <body>

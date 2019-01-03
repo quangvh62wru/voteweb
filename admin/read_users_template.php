@@ -1,34 +1,40 @@
 <?php
 // display the table if the number of users retrieved was greater than zero
+
 if($num>0){
+    ?>
  
-    echo "<table class='table table-hover table-responsive table-bordered'>";
+    <table id="kq" class='table table-hover table-responsive table-bordered'>
  
-    // table headers
-    echo "<tr>";
-        echo "<th>Firstname</th>";
-        echo "<th>Lastname</th>";
-        echo "<th>Email</th>";
-        echo "<th>Contact Number</th>";
-        echo "<th>Access Level</th>";
-    echo "</tr>";
+     <!-- table headers -->
+    <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+        <th>Contact Number</th>
+        <th>Access Level</th>
+        <th>Thao tác</th>
+    </tr>
  
-    // loop through the user records
+     <!-- loop through the user records -->
+<?php
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         extract($row);
+?>
  
-        // display user details
-        echo "<tr>";
-            echo "<td>{$firstname}</td>";
-            echo "<td>{$lastname}</td>";
-            echo "<td>{$email}</td>";
-            echo "<td>{$contact_number}</td>";
-            echo "<td>{$access_level}</td>";
-        echo "</tr>";
-        }
+         <!-- display user details -->
+        <tr id="delete<?php echo $row['userID'] ?>">
+            <td><?php print $firstname ?> </td>
+            <td><?php print $lastname ?> </td>
+            <td><?php print $email ?> </td>
+            <td><?php print $contact_number?> </td>
+            <td><?php print $access_level ?></td>
+            <td><button  onclick = "xoa(<?php echo $row['userID'] ; ?>)" class = "btn btn-danger">Xóa</button></td>
+        </tr>
+        <?php } ?>
  
-    echo "</table>";
- 
+    </table>
+ <?php 
     $page_url="read_users.php?";
     $total_rows = $user->countAll();
  
@@ -38,8 +44,29 @@ if($num>0){
  
 // tell the user there are no selfies
 else{
-    echo "<div class='alert alert-danger'>
+    ?>
+    <div class='alert alert-danger'>
         <strong>No users found.</strong>
-    </div>";
+    </div>
+<?php 
 }
 ?>
+<script type="text/javascript">
+
+    function xoa(id){
+        if(confirm("Chắn chắn muốn xóa?")){
+            $.ajax({
+                type: 'post',
+                url: 'xoa.php',
+                data: {delete_id:id},
+                success:function(data){
+                    $('#delete'+id).hide();
+                    alert (data);
+                }
+
+            });
+        }
+
+    }
+    
+</script>

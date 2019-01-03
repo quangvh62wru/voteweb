@@ -7,7 +7,6 @@ if($page>1){
     echo "First Page";
     echo "</a></li>";
 }
-
 // calculate total number of pages
 $total_pages = ceil($total_rows / $records_per_page);
 

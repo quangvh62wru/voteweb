@@ -22,6 +22,12 @@
                     <a href="<?php echo $home_url; ?>">Home</a>
                 </li>
             </ul>
+            <ul class="nav navbar-nav">
+                <!-- link to the "Cart" page, highlight if current page is cart.php -->
+                <li <?php echo $page_title=="VoteWeb" ? "class='active'" : ""; ?>>
+                    <a href="<?php echo $home_url; ?>read_cuocthi.php">Cuộc Thi</a>
+                </li>
+            </ul>
 
             <?php
             // check if users / customer was logged in

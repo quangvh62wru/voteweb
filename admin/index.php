@@ -30,7 +30,7 @@ include 'layout_head.php';
         }
         
         echo "<div class='alert alert-info'>";
-            echo "Contents of your admin section will be here.";
+            echo "Welcome back";
         echo "</div>";
         
         echo "<div class='alert alert-info'>";
