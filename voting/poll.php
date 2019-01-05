@@ -2,32 +2,31 @@
 
 //poll.php
 include('database_connection.php');
-include('../index.php');
-$query0 = " SELECT * FROM votect where idCT = 1 and idUser = ".$_SESSION['user_id'];
+
+list($idIdol, $idUser, $idCT) = explode(" ",$_POST["poll_option"]);
+
+$query0 = " SELECT * FROM votect where idCT = ".$idCT." and idUser = ".$idUser;
 $stmt = $connect->prepare($query0);
 $stmt->execute();
 $total_row = $stmt->rowCount();
 
-if(isset($_POST["poll_option"]) && $total_row < 1)
+$query1 = "SELECT ketthuc from cuocthi where idCT = ".$idCT; 
+$stmt = $connect->prepare($query1);
+$stmt->execute();
+$result = $stmt->fetchAll();
+if(isset($_POST["poll_option"]) && $total_row < 1 && $result[0][0] < date('Y-m-d H:i:s'))
 {
 	// UPDATE chitietct set voteOfIdol = voteOfIdol + 1 where idIdol = :idIdol and idCT = 1;
  $query = "
- 	UPDATE chitietct set voteOfIdol = voteOfIdol + 1 where idIdol = :idIdol and idCT = 1;
- 	INSERT INTO votect (idCT, idUser, idIdol, dateVoteCT) VALUES (1,".$_SESSION['user_id'].",:idIdol,now())";
+ 	UPDATE chitietct set voteOfIdol = voteOfIdol + 1 where idIdol = ".$idIdol." and idCT = ".$idCT.";
+ 	INSERT INTO votect (idCT, idUser, idIdol, dateVoteCT) VALUES (".$idCT." , ".$idUser." , ".$idIdol.",now())";
 
- $data = array(
-  ':idIdol'  => $_POST["poll_option"]
- );
  $statement = $connect->prepare($query);
- $statement->execute($data);
+ $statement->execute();
  
- $m = array('ok' => "VOTE thành công" );
- echo json_encode($m);
+ echo " VOTE thành công";
 }
 else{
-	 $m = array('ok' => "VOTE thành công" );
- 	echo json_encode($m);
-	}
-
-
+ 	echo "Thất bại, có thể vì quá hạn VOTE hoặc bạn đã dùng hết lượt VOTE";
+}
 ?>
